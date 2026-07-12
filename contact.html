@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Contact Us | Alderney Ferry Services</title>
+<meta name="description" content="Get in touch with Alderney Ferry Services — by phone, WhatsApp, email, or our contact form.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#151a42;--navy-deep:#0b0e28;--navy-soft:#232a5c;
+  --teal:#5cc9c4;--teal-dark:#379490;--teal-light:#a6e6e2;
+  --mint:#dfeee0;--sand:#f6f2e7;--white:#ffffff;
+  --ink:#151a42;--ink-soft:#565b82;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Manrope',system-ui,sans-serif;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--sand);color:var(--ink);font-size:16px;line-height:1.65;overflow-x:hidden}
+main{overflow-x:hidden;width:100%;max-width:100%}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* NAV (shared) */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.9rem clamp(1.5rem,5vw,3.5rem);background:rgba(21,26,66,.97);box-shadow:0 4px 28px rgba(0,0,0,.18)}
+.nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-brand-mark{width:38px;height:38px;flex-shrink:0;border-radius:50%;object-fit:cover}
+.nav-brand-text{font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--white);letter-spacing:.01em;line-height:1.1}
+.nav-brand-text span{display:block;font-family:var(--font-body);font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-light);margin-top:.2rem}
+.nav-links{display:flex;align-items:center;gap:2.1rem;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a{font-size:.82rem;font-weight:600;letter-spacing:.03em;color:rgba(255,255,255,.82);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.35rem;padding:.4rem 0}
+.nav-links>li>a:hover,.nav-links>li>a.active{color:var(--teal-light)}
+.nav-caret{width:9px;height:9px;opacity:.7;transition:transform .25s}
+.nav-links>li:hover .nav-caret{transform:rotate(180deg)}
+.nav-drop{position:absolute;top:calc(100% + .8rem);left:50%;transform:translateX(-50%) translateY(6px) scale(.97);background:var(--white);border-radius:14px;min-width:190px;padding:.5rem;box-shadow:0 20px 50px rgba(11,14,40,.22);opacity:0;pointer-events:none;transform-origin:top center;transition:opacity .22s,transform .22s var(--ease-out)}
+.nav-links>li:hover .nav-drop,.nav-links>li.open .nav-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0) scale(1)}
+.nav-drop a{display:flex;align-items:center;gap:.6rem;padding:.65rem .8rem;border-radius:9px;font-size:.84rem;font-weight:600;color:var(--navy);text-decoration:none;transition:background .18s,color .18s}
+.nav-drop a:hover{background:var(--mint);color:var(--teal-dark)}
+.nav-drop .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.nav-cta{background:var(--teal);color:var(--navy-deep)!important;font-weight:800!important;padding:.7rem 1.5rem;border-radius:100px;font-size:.8rem!important;letter-spacing:.02em;text-decoration:none;transition:background .2s,transform .2s var(--ease-out);display:inline-flex;align-items:center;gap:.5rem}
+.nav-cta:hover{background:var(--teal-light);transform:translateY(-2px)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;width:26px;height:19px;flex-direction:column;justify-content:space-between;padding:0}
+.nav-toggle span{display:block;width:100%;height:2px;background:var(--white);border-radius:2px;transition:transform .3s var(--ease-out),opacity .25s;transform-origin:center}
+.nav-toggle.open span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+.nav-mob{display:none;position:fixed;inset:0;background:var(--navy-deep);z-index:99;flex-direction:column;padding:6.5rem 2.2rem 3rem;overflow-y:auto;opacity:0;pointer-events:none;transform:translateY(-16px);transition:opacity .3s,transform .3s var(--ease-out)}
+.nav-mob.open{opacity:1;pointer-events:all;transform:none}
+.mob-link{font-family:var(--font-display);font-size:1.7rem;font-weight:500;color:var(--white);text-decoration:none;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.mob-sub{padding-left:1rem}
+.mob-sub a{display:block;font-family:var(--font-body);font-size:.9rem;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:.55rem 0}
+.mob-cta{margin-top:1.6rem;text-align:center;background:var(--teal);color:var(--navy-deep);font-weight:800;padding:.9rem;border-radius:100px;text-decoration:none;font-size:.85rem}
+
+/* PAGE HERO */
+.page-hero{background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 100%);padding:clamp(7rem,14vh,9.5rem) clamp(1.5rem,5vw,3.5rem) clamp(3rem,6vw,4.5rem);text-align:center}
+.page-hero .eyebrow{justify-content:center;color:var(--teal-light)}
+.page-hero .eyebrow::before{background:var(--teal-light)}
+.page-hero h1{font-family:var(--font-display);font-weight:500;color:var(--white);font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.1;letter-spacing:-.01em;max-width:700px;margin:0 auto 1rem}
+.page-hero h1 em{font-style:italic;color:var(--teal-light)}
+.page-hero p{color:rgba(255,255,255,.68);max-width:520px;margin:0 auto}
+
+/* SECTION UTILS */
+.section{padding:clamp(3.5rem,7vw,5.5rem) clamp(1.5rem,5vw,3.5rem)}
+.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
+.eyebrow::before{content:'';width:20px;height:2px;background:var(--teal-dark);border-radius:2px}
+
+/* CONTACT LAYOUT */
+.contact-layout{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,4rem);align-items:start}
+.contact-cards{display:flex;flex-direction:column;gap:1rem}
+.contact-card{background:var(--white);border-radius:18px;padding:1.5rem 1.7rem;border:1px solid rgba(21,26,66,.06);display:flex;align-items:flex-start;gap:1rem;text-decoration:none;transition:transform .22s var(--ease-out),box-shadow .22s}
+.contact-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(11,14,40,.1)}
+.contact-card svg{width:22px;height:22px;color:var(--teal-dark);flex-shrink:0;margin-top:.15rem}
+.contact-card h4{font-family:var(--font-display);font-size:1.05rem;color:var(--navy);margin-bottom:.2rem}
+.contact-card p{font-size:.86rem;color:var(--ink-soft)}
+.contact-card.map{background:var(--navy-deep);color:var(--white)}
+.contact-card.map svg{color:var(--teal-light)}
+.contact-card.map h4{color:var(--white)}
+.contact-card.map p{color:rgba(255,255,255,.6)}
+
+/* FORM */
+.contact-form{background:var(--white);border-radius:22px;padding:clamp(1.8rem,3.5vw,2.6rem);border:1px solid rgba(21,26,66,.06);box-shadow:0 20px 60px rgba(11,14,40,.06)}
+.contact-form h3{font-family:var(--font-display);font-size:1.5rem;font-weight:500;margin-bottom:.4rem;color:var(--navy)}
+.contact-form>p{color:var(--ink-soft);font-size:.9rem;margin-bottom:1.8rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.form-group{margin-bottom:1.3rem;display:flex;flex-direction:column;gap:.45rem}
+.form-group label{font-size:.78rem;font-weight:700;color:var(--navy)}
+.form-group input,.form-group select,.form-group textarea{
+  font-family:var(--font-body);font-size:.92rem;padding:.8rem 1rem;border-radius:10px;
+  border:1.5px solid rgba(21,26,66,.15);background:var(--sand);color:var(--ink);
+  transition:border-color .2s;width:100%
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--teal-dark)}
+.form-group textarea{resize:vertical;min-height:110px}
+.form-submit{width:100%;justify-content:center;margin-top:.4rem}
+.form-note{font-size:.78rem;color:var(--ink-soft);margin-top:1rem;text-align:center}
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-body);font-size:.85rem;font-weight:800;letter-spacing:.01em;text-decoration:none;padding:.95rem 1.9rem;border-radius:100px;border:none;cursor:pointer;transition:transform .22s var(--ease-out),box-shadow .22s,background .22s}
+.btn:active{transform:scale(.97)}
+.btn-teal{background:var(--teal);color:var(--navy-deep)}
+.btn-teal:hover{background:var(--teal-light);transform:translateY(-2px);box-shadow:0 10px 30px rgba(92,201,196,.35)}
+
+/* FOOTER */
+footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,3.5rem) 2rem}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:1.8rem}
+.footer-brand{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
+.footer-brand img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.footer-brand-name{font-family:var(--font-display);font-size:1.2rem;color:var(--white);font-weight:600}
+footer p{font-size:.87rem;line-height:1.7}
+.footer-col h4{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--white);margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:.55rem}
+.footer-col a{font-size:.87rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--teal-light)}
+.footer-bot{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;flex-wrap:wrap;gap:1rem}
+.footer-legal{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-legal a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.footer-legal a:hover{color:rgba(255,255,255,.7)}
+.footer-tagline{font-family:var(--font-display);font-style:italic;color:var(--teal-light);font-size:.95rem;margin-top:1rem}
+
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+@media(max-width:950px){
+  .contact-layout{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .nav-mob{display:flex}
+}
+@media(max-width:560px){
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-brand">
+    <img src="images/logo.jpg" alt="" class="nav-brand-mark">
+    <span class="nav-brand-text">Alderney Ferry<span>Services Ltd</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li>
+      <a href="destinations.html">Destinations <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <div class="nav-drop">
+        <a href="destinations.html#alderney"><span class="dot"></span>Alderney</a>
+        <a href="destinations.html#guernsey"><span class="dot"></span>Guernsey</a>
+        <a href="destinations.html#cherbourg"><span class="dot"></span>Cherbourg</a>
+      </div>
+    </li>
+    <li><a href="fleet-about.html">Fleet &amp; About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="book.html" class="nav-cta">Book Now →</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="nav-mob" id="navMob">
+  <a class="mob-link" href="index.html">Home</a>
+  <a class="mob-link" href="destinations.html">Destinations</a>
+  <div class="mob-sub">
+    <a href="destinations.html#alderney">Alderney</a>
+    <a href="destinations.html#guernsey">Guernsey</a>
+    <a href="destinations.html#cherbourg">Cherbourg</a>
+  </div>
+  <a class="mob-link" href="fleet-about.html">Fleet &amp; About</a>
+  <a class="mob-link" href="faq.html">FAQ</a>
+  <a class="mob-link" href="contact.html">Contact</a>
+  <a class="mob-cta" href="book.html">Book Now →</a>
+</div>
+
+<main>
+
+<section class="page-hero">
+  <div class="eyebrow">Get In Touch</div>
+  <h1>We'd love to<br>hear from <em>you</em>.</h1>
+  <p>Questions about a crossing, a group booking, or the Bonjour Guest House package — reach us however suits you best.</p>
+</section>
+
+<section class="section">
+  <div class="contact-layout">
+    <div class="contact-cards">
+      <a href="tel:+447781119796" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div><h4>Call Us</h4><p>07781 11 97 96</p></div>
+      </a>
+      <a href="https://wa.me/447781119796" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <div><h4>WhatsApp</h4><p>Message us anytime</p></div>
+      </a>
+      <a href="mailto:info@alderneyferry.com" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+        <div><h4>Email</h4><p>info@alderneyferry.com</p></div>
+      </a>
+      <div class="contact-card map">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><h4>Visit Us</h4><p>9 English Row, Braye Street<br>Alderney GY9 3XT</p></div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3>Send us a message</h3>
+      <p>Fill in the form and it'll open a pre-filled email ready to send — no account or login needed.</p>
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cf-name">Full Name</label>
+            <input type="text" id="cf-name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Email Address</label>
+            <input type="email" id="cf-email" name="email" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cf-route">Route of Interest</label>
+            <select id="cf-route" name="route">
+              <option value="Alderney to Guernsey">Alderney ⇄ Guernsey</option>
+              <option value="Alderney to Cherbourg">Alderney ⇄ Cherbourg</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cf-date">Preferred Travel Date</label>
+            <input type="date" id="cf-date" name="date">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" required placeholder="Tell us about your trip — number of passengers, dates, any questions..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-teal form-submit">Send Message →</button>
+        <p class="form-note">This opens your email app with the details pre-filled, addressed to info@alderneyferry.com.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img src="images/logo.jpg" alt="">
+        <span class="footer-brand-name">Alderney Ferry Services</span>
+      </div>
+      <p>A family-run passenger ferry service connecting Alderney with Guernsey and Cherbourg, France. Two vessels, two routes, one lifeline for the islands.</p>
+      <p class="footer-tagline">We look forward to welcoming you onboard.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Sail</h4>
+      <ul>
+        <li><a href="book.html">Book a Crossing</a></li>
+        <li><a href="destinations.html#alderney">Alderney</a></li>
+        <li><a href="destinations.html#guernsey">Guernsey</a></li>
+        <li><a href="destinations.html#cherbourg">Cherbourg</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="fleet-about.html">Fleet &amp; About</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@alderneyferry.com">info@alderneyferry.com</a></li>
+        <li><a href="tel:+447781119796">07781 11 97 96</a></li>
+        <li><a href="https://wa.me/447781119796">WhatsApp Us</a></li>
+        <li style="color:rgba(255,255,255,.35);font-size:.85rem;margin-top:.4rem">9 English Row, Braye Street<br>Alderney GY9 3XT</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <span>&copy; 2026 Alderney Ferry Services Ltd. Reg. No. 2038.</span>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const navToggle = document.getElementById('navToggle');
+const navMob = document.getElementById('navMob');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navMob.classList.toggle('open');
+  document.body.style.overflow = navMob.classList.contains('open') ? 'hidden' : '';
+});
+navMob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navToggle.classList.remove('open');
+  navMob.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const name = this.name.value.trim();
+  const email = this.email.value.trim();
+  const route = this.route.value;
+  const date = this.date.value;
+  const message = this.message.value.trim();
+
+  const subject = `Enquiry from ${name} — ${route}`;
+  const bodyLines = [
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Route: ${route}`,
+    date ? `Preferred Date: ${date}` : null,
+    '',
+    message
+  ].filter(Boolean);
+
+  const mailto = `mailto:info@alderneyferry.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+  window.location.href = mailto;
+});
+</script>
+</body>
+</html>
