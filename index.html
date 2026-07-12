@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Alderney Ferry Services — Alderney · Guernsey · Cherbourg</title>
+<meta name="description" content="Family-run passenger ferry service linking Alderney, Guernsey and Cherbourg. Book your crossing aboard the Causeway Explorer or Sorcerer II.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="preload" as="image" href="images/harbor-aerial.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#151a42;--navy-deep:#0b0e28;--navy-soft:#232a5c;
+  --teal:#5cc9c4;--teal-dark:#379490;--teal-light:#a6e6e2;
+  --mint:#dfeee0;--sand:#f6f2e7;--white:#ffffff;
+  --ink:#151a42;--ink-soft:#565b82;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Manrope',system-ui,sans-serif;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  --ease-io:cubic-bezier(0.83,0,0.17,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--sand);color:var(--ink);font-size:16px;line-height:1.65;overflow-x:hidden}
+main{overflow-x:hidden;width:100%;max-width:100%}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.3rem clamp(1.5rem,5vw,3.5rem);
+  transition:background .4s var(--ease-out),padding .4s var(--ease-out),box-shadow .4s
+}
+.nav.solid{background:rgba(21,26,66,.97);padding:.9rem clamp(1.5rem,5vw,3.5rem);box-shadow:0 4px 28px rgba(0,0,0,.18)}
+.nav-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.nav-brand-mark{width:38px;height:38px;flex-shrink:0}
+.nav-brand-text{font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--white);letter-spacing:.01em;line-height:1.1}
+.nav-brand-text span{display:block;font-family:var(--font-body);font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-light);margin-top:.2rem}
+.nav-links{display:flex;align-items:center;gap:2.1rem;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a{
+  font-size:.82rem;font-weight:600;letter-spacing:.03em;color:rgba(255,255,255,.82);
+  text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.35rem;padding:.4rem 0
+}
+.nav-links>li>a:hover{color:var(--teal-light)}
+.nav-caret{width:9px;height:9px;opacity:.7;transition:transform .25s}
+.nav-links>li:hover .nav-caret{transform:rotate(180deg)}
+.nav-drop{
+  position:absolute;top:calc(100% + .8rem);left:50%;transform:translateX(-50%) translateY(6px) scale(.97);
+  background:var(--white);border-radius:14px;min-width:190px;padding:.5rem;
+  box-shadow:0 20px 50px rgba(11,14,40,.22);
+  opacity:0;pointer-events:none;transform-origin:top center;
+  transition:opacity .22s,transform .22s var(--ease-out)
+}
+.nav-links>li:hover .nav-drop,.nav-links>li.open .nav-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0) scale(1)}
+.nav-drop a{display:flex;align-items:center;gap:.6rem;padding:.65rem .8rem;border-radius:9px;font-size:.84rem;font-weight:600;color:var(--navy);text-decoration:none;transition:background .18s,color .18s}
+.nav-drop a:hover{background:var(--mint);color:var(--teal-dark)}
+.nav-drop .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.nav-cta{
+  background:var(--teal);color:var(--navy-deep)!important;font-weight:800!important;
+  padding:.7rem 1.5rem;border-radius:100px;font-size:.8rem!important;letter-spacing:.02em;
+  text-decoration:none;transition:background .2s,transform .2s var(--ease-out);display:inline-flex;align-items:center;gap:.5rem
+}
+.nav-cta:hover{background:var(--teal-light);transform:translateY(-2px)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;width:26px;height:19px;flex-direction:column;justify-content:space-between;padding:0}
+.nav-toggle span{display:block;width:100%;height:2px;background:var(--white);border-radius:2px;transition:transform .3s var(--ease-out),opacity .25s;transform-origin:center}
+.nav-toggle.open span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+.nav-mob{
+  display:none;position:fixed;inset:0;background:var(--navy-deep);z-index:99;
+  flex-direction:column;padding:6.5rem 2.2rem 3rem;overflow-y:auto;
+  opacity:0;pointer-events:none;transform:translateY(-16px);
+  transition:opacity .3s,transform .3s var(--ease-out)
+}
+.nav-mob.open{opacity:1;pointer-events:all;transform:none}
+.mob-link{font-family:var(--font-display);font-size:1.7rem;font-weight:500;color:var(--white);text-decoration:none;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.mob-sub{padding-left:1rem}
+.mob-sub a{display:block;font-family:var(--font-body);font-size:.9rem;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:.55rem 0}
+.mob-cta{margin-top:1.6rem;text-align:center;background:var(--teal);color:var(--navy-deep);font-weight:800;padding:.9rem;border-radius:100px;text-decoration:none;font-size:.85rem}
+
+/* HERO / ROUTE MAP STAGE */
+.hero-stage{position:relative;height:100vh;height:100svh;background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 55%,#0f1338 100%);overflow:hidden}
+.hero-copy{
+  position:absolute;top:0;left:0;right:0;z-index:5;
+  padding:clamp(7rem,14vh,10rem) clamp(1.5rem,5vw,3.5rem) 0;
+  text-align:center;pointer-events:none
+}
+.hero-eyebrow{
+  font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--teal-light);
+  display:flex;align-items:center;justify-content:center;gap:.7rem;margin-bottom:1.3rem;
+  opacity:0;animation:riseIn .8s .2s var(--ease-out) forwards
+}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:22px;height:1px;background:var(--teal)}
+.hero-stage h1{
+  font-family:var(--font-display);font-weight:500;color:var(--white);
+  font-size:clamp(2.4rem,5.6vw,4.6rem);line-height:1.08;letter-spacing:-.01em;
+  max-width:900px;margin:0 auto 1.3rem;
+  opacity:0;animation:riseIn .9s .35s var(--ease-out) forwards
+}
+.hero-stage h1 em{font-style:italic;color:var(--teal-light)}
+.hero-sub{
+  font-size:1.04rem;color:rgba(255,255,255,.72);max-width:520px;margin:0 auto 2rem;font-weight:400;
+  opacity:0;animation:riseIn .9s .5s var(--ease-out) forwards
+}
+.hero-actions{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;pointer-events:all;
+  opacity:0;animation:riseIn .9s .65s var(--ease-out) forwards}
+@keyframes riseIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.route-map-wrap{position:absolute;inset:0;z-index:1}
+.route-map-wrap svg{width:100%;height:100%}
+.rm-land{fill:var(--mint);opacity:.94}
+.rm-land-shadow{fill:rgba(0,0,0,.12)}
+.rm-route{fill:none;stroke:var(--teal-light);stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(166,230,226,.5))}
+.rm-pin{opacity:0;transform-box:fill-box;transform-origin:center bottom}
+.rm-pin-dot{fill:var(--teal)}
+.rm-pin-ring{fill:none;stroke:var(--teal-light);stroke-width:2;opacity:.6}
+.rm-pin-label{font-family:var(--font-body);font-weight:800;font-size:22px;fill:var(--white);letter-spacing:.02em}
+.rm-pin-sub{font-family:var(--font-body);font-weight:600;font-size:13px;fill:var(--teal-light);letter-spacing:.08em;text-transform:uppercase}
+.rm-ferry{opacity:0}
+.rm-ferry path{fill:var(--white)}
+.rm-card{
+  position:absolute;width:230px;background:rgba(21,26,66,.88);backdrop-filter:blur(10px);
+  border:1px solid rgba(166,230,226,.25);border-radius:16px;padding:1.1rem 1.2rem;
+  opacity:0;transform:translateY(14px) scale(.96);pointer-events:none
+}
+.rm-card-tag{font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-light);margin-bottom:.35rem}
+.rm-card-title{font-family:var(--font-display);font-size:1.25rem;color:var(--white);margin-bottom:.3rem}
+.rm-card-desc{font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.5}
+#rm-card-guernsey{top:64%;left:5%}
+#rm-card-cherbourg{top:70%;right:4%}
+
+.hero-scroll-cue{
+  position:absolute;bottom:2.3rem;left:0;right:0;margin:0 auto;width:fit-content;z-index:5;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  opacity:0;animation:riseIn .8s 1.1s var(--ease-out) forwards;transition:opacity .4s
+}
+.hero-scroll-cue span{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:700}
+.scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,var(--teal),transparent);animation:scrollPulse 2s 1.8s infinite}
+@keyframes scrollPulse{0%,100%{opacity:.25;transform:scaleY(.55)}50%{opacity:1;transform:scaleY(1)}}
+
+/* fallback (mobile / reduced motion): show full map statically */
+.hero-stage.static-map .route-map-wrap{display:none}
+
+/* TRUST STRIP */
+.trust-strip{background:var(--navy-deep);padding:1.4rem clamp(1.5rem,5vw,3.5rem);display:flex;flex-wrap:wrap;gap:1.2rem 3rem;justify-content:center;align-items:center}
+.trust-item{display:flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.02em;white-space:nowrap}
+.trust-item svg{width:16px;height:16px;color:var(--teal);flex-shrink:0}
+
+/* SECTION UTILS */
+.section{padding:clamp(4.5rem,9vw,7.5rem) clamp(1.5rem,5vw,3.5rem)}
+.section-head{max-width:640px;margin-bottom:3rem}
+.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
+.eyebrow::before{content:'';width:20px;height:2px;background:var(--teal-dark);border-radius:2px}
+h2.section-title{font-family:var(--font-display);font-weight:500;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.12;letter-spacing:-.01em;color:var(--navy)}
+h2.section-title em{font-style:italic;color:var(--teal-dark)}
+.section-lead{font-size:1.02rem;color:var(--ink-soft);margin-top:.9rem;max-width:520px}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+
+.btn{
+  display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-body);font-size:.82rem;font-weight:800;
+  letter-spacing:.01em;text-decoration:none;padding:.95rem 1.9rem;border-radius:100px;border:none;cursor:pointer;
+  transition:transform .22s var(--ease-out),box-shadow .22s,background .22s;position:relative
+}
+.btn:active{transform:scale(.96)}
+.btn-teal{background:var(--teal);color:var(--navy-deep)}
+.btn-teal:hover{background:var(--teal-light);transform:translateY(-2px);box-shadow:0 10px 30px rgba(92,201,196,.35)}
+.btn-navy{background:var(--navy);color:var(--white)}
+.btn-navy:hover{background:var(--navy-soft);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--navy);border:1.5px solid rgba(21,26,66,.25)}
+.btn-outline:hover{border-color:var(--navy);transform:translateY(-2px)}
+.btn-outline-light{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.35)}
+.btn-outline-light:hover{border-color:var(--white);transform:translateY(-2px)}
+
+/* DESTINATIONS TEASER */
+.dest-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:1.4rem;align-items:stretch}
+.dest-card{position:relative;border-radius:22px;overflow:hidden;min-height:460px;display:flex;align-items:flex-end;text-decoration:none;isolation:isolate}
+.dest-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease-out);z-index:-2}
+.dest-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(11,14,40,.9) 0%,rgba(11,14,40,.15) 60%);z-index:-1}
+.dest-card:hover img{transform:scale(1.08)}
+.dest-card.short{min-height:280px;align-self:end}
+.dest-content{padding:1.8rem}
+.dest-num{font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-light);margin-bottom:.5rem}
+.dest-card h3{font-family:var(--font-display);font-size:1.6rem;color:var(--white);margin-bottom:.4rem}
+.dest-card p{font-size:.85rem;color:rgba(255,255,255,.7);max-width:280px;margin-bottom:.9rem}
+.dest-arrow{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--white);transition:gap .22s}
+.dest-card:hover .dest-arrow{gap:.75rem}
+.dest-col{display:flex;flex-direction:column;gap:1.4rem}
+
+/* FLEET TEASER */
+.fleet-section{background:var(--navy-deep);color:var(--white)}
+.fleet-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem;margin-top:3rem}
+.fleet-card{background:var(--navy);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+.fleet-img{aspect-ratio:16/10;overflow:hidden;position:relative}
+.fleet-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out)}
+.fleet-card:hover .fleet-img img{transform:scale(1.06)}
+.fleet-body{padding:1.8rem}
+.fleet-route-tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-light);margin-bottom:.7rem}
+.fleet-card h3{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.5rem}
+.fleet-card p{font-size:.87rem;color:rgba(255,255,255,.6);line-height:1.6}
+.fleet-specs{display:flex;gap:1.5rem;margin-top:1.1rem;flex-wrap:wrap}
+.fleet-spec{font-size:.75rem;color:rgba(255,255,255,.5)}
+.fleet-spec b{display:block;color:var(--white);font-size:.95rem;font-family:var(--font-display)}
+
+/* HOW IT WORKS */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;counter-reset:step}
+.step{position:relative;padding-top:.5rem}
+.step-num{font-family:var(--font-display);font-size:3.2rem;color:var(--teal-light);font-weight:500;line-height:1;margin-bottom:1rem;-webkit-text-stroke:1.5px var(--teal-dark);color:transparent}
+.step h3{font-family:var(--font-display);font-size:1.35rem;color:var(--navy);margin-bottom:.6rem}
+.step p{font-size:.9rem;color:var(--ink-soft)}
+
+/* FOUNDERS */
+.founders-section{display:grid;grid-template-columns:.85fr 1.15fr;gap:0;align-items:stretch;background:var(--mint)}
+.founders-img{position:relative;min-height:460px}
+.founders-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.founders-copy{padding:clamp(3rem,6vw,5rem)}
+.founders-quote{font-family:var(--font-display);font-style:italic;font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.45;color:var(--navy);margin:1.3rem 0 1.6rem}
+.founders-sig{font-size:.85rem;font-weight:700;color:var(--teal-dark);letter-spacing:.02em}
+
+/* FINAL CTA */
+.final-cta{position:relative;padding:clamp(5rem,10vw,8.5rem) clamp(1.5rem,5vw,3.5rem);text-align:center;overflow:hidden;isolation:isolate}
+.final-cta img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.final-cta::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,14,40,.75),rgba(11,14,40,.92));z-index:-1}
+.final-cta h2{font-family:var(--font-display);font-weight:500;color:var(--white);font-size:clamp(2.1rem,4.6vw,3.6rem);line-height:1.1;margin-bottom:1.1rem}
+.final-cta h2 em{font-style:italic;color:var(--teal-light)}
+.final-cta p{color:rgba(255,255,255,.68);max-width:460px;margin:0 auto 2.2rem;font-size:1rem}
+.final-cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,3.5rem) 2rem}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:1.8rem}
+.footer-brand{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
+.footer-brand img{width:34px;height:34px}
+.footer-brand-name{font-family:var(--font-display);font-size:1.2rem;color:var(--white);font-weight:600}
+footer p{font-size:.87rem;line-height:1.7}
+.footer-col h4{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--white);margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:.55rem}
+.footer-col a{font-size:.87rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--teal-light)}
+.footer-bot{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;flex-wrap:wrap;gap:1rem}
+.footer-legal{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-legal a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.footer-legal a:hover{color:rgba(255,255,255,.7)}
+.footer-tagline{font-family:var(--font-display);font-style:italic;color:var(--teal-light);font-size:.95rem;margin-top:1rem}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.r.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .dest-grid{grid-template-columns:1fr 1fr}
+  .dest-grid>a:first-child{grid-column:1/-1}
+  .fleet-grid{grid-template-columns:1fr}
+  .founders-section{grid-template-columns:1fr}
+  .founders-img{min-height:320px}
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  .nav-mob{display:flex}
+  .steps-grid{grid-template-columns:1fr;gap:2rem}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  #rm-card-guernsey,#rm-card-cherbourg{display:none}
+}
+@media(max-width:640px){
+  .dest-grid{grid-template-columns:1fr}
+  .dest-grid>a{grid-column:1/-1!important}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .hero-stage{height:auto;min-height:100svh;padding-bottom:2rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .r{transition:none!important;opacity:1!important;transform:none!important}
+  .scroll-line{animation:none!important}
+  .hero-eyebrow,.hero-stage h1,.hero-sub,.hero-actions,.hero-scroll-cue{animation:none!important;opacity:1!important;transform:none!important}
+  html{scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-brand">
+    <img src="images/logo.jpg" alt="" class="nav-brand-mark" style="border-radius:50%;object-fit:cover">
+    <span class="nav-brand-text">Alderney Ferry<span>Services Ltd</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li>
+      <a href="destinations.html">Destinations <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <div class="nav-drop">
+        <a href="destinations.html#alderney"><span class="dot"></span>Alderney</a>
+        <a href="destinations.html#guernsey"><span class="dot"></span>Guernsey</a>
+        <a href="destinations.html#cherbourg"><span class="dot"></span>Cherbourg</a>
+      </div>
+    </li>
+    <li><a href="fleet-about.html">Fleet &amp; About</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="book.html" class="nav-cta">Book Now →</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="nav-mob" id="navMob">
+  <a class="mob-link" href="index.html">Home</a>
+  <a class="mob-link" href="destinations.html">Destinations</a>
+  <div class="mob-sub">
+    <a href="destinations.html#alderney">Alderney</a>
+    <a href="destinations.html#guernsey">Guernsey</a>
+    <a href="destinations.html#cherbourg">Cherbourg</a>
+  </div>
+  <a class="mob-link" href="fleet-about.html">Fleet &amp; About</a>
+  <a class="mob-link" href="faq.html">FAQ</a>
+  <a class="mob-link" href="contact.html">Contact</a>
+  <a class="mob-cta" href="book.html">Book Now →</a>
+</div>
+
+<main>
+
+<!-- HERO / ANIMATED ROUTE MAP -->
+<section class="hero-stage" id="heroStage">
+  <div class="hero-copy">
+    <div class="hero-eyebrow">Alderney · Guernsey · Cherbourg</div>
+    <h1>Three islands.<br>One <em>lifeline</em> ferry.</h1>
+    <p class="hero-sub">Family-run passenger crossings connecting Alderney with Guernsey and mainland France — aboard the Causeway Explorer and Sorcerer II.</p>
+    <div class="hero-actions">
+      <a href="book.html" class="btn btn-teal">Book Your Crossing →</a>
+      <a href="destinations.html" class="btn btn-outline-light">Explore Destinations</a>
+    </div>
+  </div>
+
+  <div class="route-map-wrap">
+    <svg id="routeMapSvg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Map of ferry routes between Alderney, Guernsey and Cherbourg">
+      <defs>
+        <radialGradient id="oceanGlow" cx="50%" cy="40%" r="75%">
+          <stop offset="0%" stop-color="#232a5c"/>
+          <stop offset="100%" stop-color="#0b0e28"/>
+        </radialGradient>
+        <pattern id="wavePattern" width="60" height="30" patternUnits="userSpaceOnUse">
+          <path d="M0,15 Q15,5 30,15 T60,15" fill="none" stroke="rgba(166,230,226,.05)" stroke-width="2"/>
+        </pattern>
+      </defs>
+      <rect width="1200" height="800" fill="url(#oceanGlow)"/>
+      <rect width="1200" height="800" fill="url(#wavePattern)"/>
+
+      <!-- Cherbourg / French mainland coast (bottom-right band only, clear of headline text) -->
+      <path class="rm-land-shadow" d="M1090,600 Q1030,655 1058,715 Q1080,760 1035,800 L1210,800 L1210,600 Z" transform="translate(6,8)"/>
+      <path class="rm-land" d="M1090,600 Q1030,655 1058,715 Q1080,760 1035,800 L1210,800 L1210,600 Z"/>
+
+      <!-- Guernsey -->
+      <path class="rm-land-shadow" d="M100,632 Q120,602 165,612 Q206,624 198,666 Q191,706 148,711 Q105,701 100,632 Z" transform="translate(5,7)"/>
+      <path class="rm-land" d="M100,632 Q120,602 165,612 Q206,624 198,666 Q191,706 148,711 Q105,701 100,632 Z"/>
+
+      <!-- Alderney -->
+      <path class="rm-land-shadow" d="M312,522 Q332,497 367,507 Q397,517 390,550 Q382,574 347,570 Q314,560 312,522 Z" transform="translate(4,6)"/>
+      <path class="rm-land" d="M312,522 Q332,497 367,507 Q397,517 390,550 Q382,574 347,570 Q314,560 312,522 Z"/>
+
+      <!-- Route: Alderney -> Guernsey -->
+      <path id="routeAG" class="rm-route" d="M328,598 Q222,648 158,688"/>
+      <!-- Route: Alderney -> Cherbourg -->
+      <path id="routeAC" class="rm-route" d="M354,588 Q618,556 892,643"/>
+
+      <!-- Ferries -->
+      <g id="ferryAG" class="rm-ferry"><path d="M -11,-4 L 10,0 L -11,4 L -6,0 Z"/></g>
+      <g id="ferryAC" class="rm-ferry"><path d="M -11,-4 L 10,0 L -11,4 L -6,0 Z"/></g>
+
+      <!-- Pins -->
+      <g id="pinAlderney" class="rm-pin" transform="translate(330,590)">
+        <circle class="rm-pin-ring" cx="0" cy="0" r="14"/>
+        <circle class="rm-pin-dot" cx="0" cy="0" r="6"/>
+        <text class="rm-pin-label" x="18" y="6">Alderney</text>
+        <text class="rm-pin-sub" x="18" y="24">Home Port</text>
+      </g>
+      <g id="pinGuernsey" class="rm-pin" transform="translate(150,685)">
+        <circle class="rm-pin-ring" cx="0" cy="0" r="14"/>
+        <circle class="rm-pin-dot" cx="0" cy="0" r="6"/>
+        <text class="rm-pin-label" x="18" y="6">Guernsey</text>
+        <text class="rm-pin-sub" x="18" y="24">~60 min crossing</text>
+      </g>
+      <g id="pinCherbourg" class="rm-pin" transform="translate(895,645)">
+        <circle class="rm-pin-ring" cx="0" cy="0" r="14"/>
+        <circle class="rm-pin-dot" cx="0" cy="0" r="6"/>
+        <text class="rm-pin-label" x="18" y="6">Cherbourg</text>
+        <text class="rm-pin-sub" x="18" y="24">Mainland France</text>
+      </g>
+    </svg>
+
+    <div class="rm-card" id="rm-card-guernsey">
+      <div class="rm-card-tag">Causeway Explorer</div>
+      <div class="rm-card-title">Guernsey</div>
+      <div class="rm-card-desc">The lifeline route — a full day on either island, there and back.</div>
+    </div>
+    <div class="rm-card" id="rm-card-cherbourg">
+      <div class="rm-card-tag">Sorcerer II · Seasonal</div>
+      <div class="rm-card-title">Cherbourg</div>
+      <div class="rm-card-desc">Direct to mainland France, every Monday &amp; Friday, April–September.</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-cue" id="scrollCue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>Family-run since 2022</div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 17h18M5 17V9l7-5 7 5v8"/></svg>Two vessels, two routes</div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>~60 minute crossings</div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Dogs, bikes &amp; gear welcome</div>
+</div>
+
+<!-- DESTINATIONS TEASER -->
+<section class="section">
+  <div class="section-head r">
+    <div class="eyebrow">Where We Sail</div>
+    <h2 class="section-title">Three places,<br>one <em>ferry service</em>.</h2>
+    <p class="section-lead">Every crossing starts in Alderney. Choose your onward destination — the wild coastlines of Guernsey, or the mainland streets of Cherbourg.</p>
+  </div>
+  <div class="dest-grid r d1">
+    <a href="destinations.html#alderney" class="dest-card">
+      <img src="images/landmark-fort.jpg" alt="Alderney coastline and historic fort" loading="lazy">
+      <div class="dest-content">
+        <div class="dest-num">Home Port</div>
+        <h3>Alderney</h3>
+        <p>Wild cliffs, WWII history, and the quiet heart of the Channel Islands.</p>
+        <span class="dest-arrow">Discover Alderney →</span>
+      </div>
+    </a>
+    <div class="dest-col">
+      <a href="destinations.html#guernsey" class="dest-card short">
+        <img src="images/beach-panorama.jpg" alt="Guernsey coastal beach" loading="lazy">
+        <div class="dest-content">
+          <div class="dest-num">~60 Min</div>
+          <h3>Guernsey</h3>
+          <span class="dest-arrow">Discover Guernsey →</span>
+        </div>
+      </a>
+      <a href="destinations.html#cherbourg" class="dest-card short">
+        <img src="images/harbor-aerial.jpg" alt="Harbour crossing towards Cherbourg" loading="lazy">
+        <div class="dest-content">
+          <div class="dest-num">Seasonal · Mon &amp; Fri</div>
+          <h3>Cherbourg</h3>
+          <span class="dest-arrow">Discover Cherbourg →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET TEASER -->
+<section class="section fleet-section">
+  <div class="section-head r">
+    <div class="eyebrow" style="color:var(--teal-light)">The Fleet</div>
+    <h2 class="section-title" style="color:var(--white)">Two boats, built for<br>the <em style="color:var(--teal-light)">Channel Islands</em>.</h2>
+    <p class="section-lead" style="color:rgba(255,255,255,.6)">Purpose-suited vessels for open water — comfortable inside, capable outside.</p>
+  </div>
+  <div class="fleet-grid r d1">
+    <div class="fleet-card">
+      <div class="fleet-img"><img src="images/causeway-explorer.jpg" alt="Causeway Explorer underway" loading="lazy"></div>
+      <div class="fleet-body">
+        <div class="fleet-route-tag">Alderney ⇄ Guernsey</div>
+        <h3>Causeway Explorer</h3>
+        <p>A Cygnus Cyfish 38 with extensive interior and exterior seating — our lifeline service between the two islands.</p>
+        <div class="fleet-specs">
+          <div class="fleet-spec"><b>Cygnus Cyfish 38</b>Vessel class</div>
+          <div class="fleet-spec"><b>Year-round</b>Service</div>
+        </div>
+      </div>
+    </div>
+    <div class="fleet-card">
+      <div class="fleet-img"><img src="images/sorcerer-ii.jpg" alt="Sorcerer II underway" loading="lazy"></div>
+      <div class="fleet-body">
+        <div class="fleet-route-tag">Alderney ⇄ Cherbourg</div>
+        <h3>Sorcerer II</h3>
+        <p>A Lochin 40 Sports Fisherman, added in 2023 — running our France crossing and supporting Hooked on Alderney charters.</p>
+        <div class="fleet-specs">
+          <div class="fleet-spec"><b>Lochin 40</b>Vessel class</div>
+          <div class="fleet-spec"><b>Apr–Sep</b>Mon &amp; Fri</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="r d2" style="margin-top:2.5rem;text-align:center">
+    <a href="fleet-about.html" class="btn btn-outline-light">Meet the Fleet &amp; Our Story →</a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-head center r">
+    <div class="eyebrow" style="justify-content:center">Booking Made Simple</div>
+    <h2 class="section-title">Three steps to<br><em>step aboard</em>.</h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step r d1">
+      <div class="step-num">01</div>
+      <h3>Choose your crossing</h3>
+      <p>Alderney to Guernsey, or Alderney to Cherbourg — pick your destination and travel dates.</p>
+    </div>
+    <div class="step r d2">
+      <div class="step-num">02</div>
+      <h3>Book in minutes</h3>
+      <p>Secure, instant booking with real-time availability — passengers, dogs and bikes all included.</p>
+    </div>
+    <div class="step r d3">
+      <div class="step-num">03</div>
+      <h3>Arrive &amp; sail</h3>
+      <p>Check in 30 minutes before departure at our walled area near Alderney Sailing Club — and you're off.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDERS -->
+<section class="founders-section">
+  <div class="founders-img r">
+    <img src="images/founders.jpg" alt="Dan and Charlie, founders of Alderney Ferry Services" loading="lazy">
+  </div>
+  <div class="founders-copy">
+    <div class="eyebrow r">Our Story</div>
+    <h2 class="section-title r d1">Built by islanders,<br>for <em>islanders</em>.</h2>
+    <p class="founders-quote r d2">"We started Alderney Ferry Services in 2022 because we saw a gap — islanders and visitors needed a proper, reliable lifeline between Alderney and Guernsey. It's grown from there ever since."</p>
+    <p class="founders-sig r d3">— Dan &amp; Charlie, Founders</p>
+    <div class="r d4" style="margin-top:1.6rem">
+      <a href="fleet-about.html" class="btn btn-navy">Read Our Full Story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <img src="images/harbor-aerial.jpg" alt="" loading="lazy">
+  <h2 class="r">Ready to <em>sail</em>?</h2>
+  <p class="r d1">Book your crossing to Guernsey or Cherbourg today — we look forward to welcoming you onboard.</p>
+  <div class="final-cta-actions r d2">
+    <a href="book.html" class="btn btn-teal">Book Your Crossing →</a>
+    <a href="contact.html" class="btn btn-outline-light">Get in Touch</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img src="images/logo.jpg" alt="" style="border-radius:50%;object-fit:cover">
+        <span class="footer-brand-name">Alderney Ferry Services</span>
+      </div>
+      <p>A family-run passenger ferry service connecting Alderney with Guernsey and Cherbourg, France. Two vessels, two routes, one lifeline for the islands.</p>
+      <p class="footer-tagline">We look forward to welcoming you onboard.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Sail</h4>
+      <ul>
+        <li><a href="book.html">Book a Crossing</a></li>
+        <li><a href="destinations.html#alderney">Alderney</a></li>
+        <li><a href="destinations.html#guernsey">Guernsey</a></li>
+        <li><a href="destinations.html#cherbourg">Cherbourg</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="fleet-about.html">Fleet &amp; About</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@alderneyferry.com">info@alderneyferry.com</a></li>
+        <li><a href="tel:+447781119796">07781 11 97 96</a></li>
+        <li><a href="https://wa.me/447781119796">WhatsApp Us</a></li>
+        <li style="color:rgba(255,255,255,.35);font-size:.85rem;margin-top:.4rem">9 English Row, Braye Street<br>Alderney GY9 3XT</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <span>&copy; 2026 Alderney Ferry Services Ltd. Reg. No. 2038.</span>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script>
+// NAV SCROLL STATE
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 60);
+}, { passive: true });
+
+// MOBILE NAV
+const navToggle = document.getElementById('navToggle');
+const navMob = document.getElementById('navMob');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navMob.classList.toggle('open');
+  document.body.style.overflow = navMob.classList.contains('open') ? 'hidden' : '';
+});
+navMob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navToggle.classList.remove('open');
+  navMob.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+// REVEAL ON SCROLL
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.r').forEach(el => revealObs.observe(el));
+
+// ROUTE MAP ANIMATION
+(function () {
+  const heroStage = document.getElementById('heroStage');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDesktop = window.innerWidth >= 900;
+
+  window.addEventListener('load', () => {
+    if (reduceMotion || !isDesktop || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      heroStage.classList.add('static-map');
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const routeAG = document.getElementById('routeAG');
+    const routeAC = document.getElementById('routeAC');
+    const ferryAG = document.getElementById('ferryAG');
+    const ferryAC = document.getElementById('ferryAC');
+    const lenAG = routeAG.getTotalLength();
+    const lenAC = routeAC.getTotalLength();
+
+    [routeAG, routeAC].forEach((path, i) => {
+      const len = i === 0 ? lenAG : lenAC;
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+    });
+
+    function placeOnPath(path, len, el, t) {
+      const pt = path.getPointAtLength(t * len);
+      const ptNext = path.getPointAtLength(Math.min(t * len + 1, len));
+      const angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
+      el.setAttribute('transform', `translate(${pt.x},${pt.y}) rotate(${angle})`);
+    }
+
+    const state = { pinAlderney: 0, ag: 0, ferryAGOpacity: 0, guernseyPin: 0, guernseyCard: 0, ac: 0, ferryACOpacity: 0, cherbourgPin: 0, cherbourgCard: 0 };
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroStage,
+        start: 'top top',
+        end: '+=280%',
+        scrub: 0.6,
+        pin: true,
+        anticipatePin: 1
+      }
+    });
+
+    tl.to('#scrollCue', { opacity: 0, duration: 0.05 }, 0);
+
+    tl.to('#pinAlderney', { opacity: 1, duration: 0.06 }, 0.02);
+
+    tl.to(state, {
+      ag: 1,
+      ferryAGOpacity: 1,
+      onUpdate: () => {
+        routeAG.style.strokeDashoffset = lenAG * (1 - state.ag);
+        ferryAG.style.opacity = state.ferryAGOpacity;
+        placeOnPath(routeAG, lenAG, ferryAG, state.ag);
+      },
+      duration: 0.32
+    }, 0.08);
+
+    tl.to('#pinGuernsey', { opacity: 1, duration: 0.06 }, 0.4);
+    tl.to('#rm-card-guernsey', { opacity: 1, y: 0, scale: 1, duration: 0.08 }, 0.42);
+
+    tl.to(state, {
+      ac: 1,
+      ferryACOpacity: 1,
+      onUpdate: () => {
+        routeAC.style.strokeDashoffset = lenAC * (1 - state.ac);
+        ferryAC.style.opacity = state.ferryACOpacity;
+        placeOnPath(routeAC, lenAC, ferryAC, state.ac);
+      },
+      duration: 0.32
+    }, 0.52);
+
+    tl.to('#pinCherbourg', { opacity: 1, duration: 0.06 }, 0.86);
+    tl.to('#rm-card-cherbourg', { opacity: 1, y: 0, scale: 1, duration: 0.08 }, 0.88);
+
+    tl.to(['#ferryAG', '#ferryAC'], { opacity: 0.55, duration: 0.06 }, 0.96);
+  });
+})();
+</script>
+</body>
+</html>
