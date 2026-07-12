@@ -144,7 +144,7 @@ footer p{font-size:.87rem;line-height:1.7}
 
 <nav class="nav" id="mainNav">
   <a href="index.html" class="nav-brand">
-    <img src="images/logo.jpg" alt="" class="nav-brand-mark">
+    <img src="logo-image.webp" alt="" class="nav-brand-mark">
     <span class="nav-brand-text">Alderney Ferry<span>Services Ltd</span></span>
   </a>
   <ul class="nav-links">
@@ -178,23 +178,27 @@ footer p{font-size:.87rem;line-height:1.7}
   <a class="mob-link" href="contact.html">Contact</a>
   <a class="mob-cta" href="book.html">Book Now →</a>
 </div>
+  <a class="mob-link" href="fleet-about.html">Fleet &amp; About</a>
+  <a class="mob-link" href="faq.html">FAQ</a>
+  <a class="mob-link" href="contact.html">Contact</a>
+  <a class="mob-cta" href="book.html">Book Now →</a>
+</div>
 
 <main>
 
 <section class="page-hero">
   <div class="eyebrow">Book Online</div>
   <h1>Book your <em>crossing</em>.</h1>
-  <p>Real-time availability for Alderney ⇄ Guernsey and Alderney ⇄ Cherbourg. Passengers, dogs, bikes and sports equipment all included.</p>
+  <p>Alderney ⇄ Guernsey and Alderney ⇄ Cherbourg. Passengers, dogs, bikes and sports equipment all included — get in touch to check availability and book.</p>
 </section>
 
 <section class="section">
   <div class="book-layout">
     <div class="book-widget-panel">
-      <div class="panel-label">Live Availability</div>
-      <div id="bookeoWidgetHost"></div>
-      <div class="widget-fallback" id="widgetFallback">
+      <div class="panel-label">Book Your Crossing</div>
+      <div class="widget-fallback show" id="widgetFallback">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <p>The booking widget is taking a moment to load, or may be blocked by a browser extension.<br>You can also book directly by phone or WhatsApp.</p>
+        <p>Online booking is temporarily unavailable. Please book your crossing by phone, WhatsApp, or email and we'll confirm availability directly.</p>
         <a href="tel:+447781119796" class="btn-outline">Call 07781 11 97 96</a>
       </div>
     </div>
@@ -259,7 +263,7 @@ footer p{font-size:.87rem;line-height:1.7}
   <div class="footer-grid">
     <div>
       <div class="footer-brand">
-        <img src="images/logo.jpg" alt="">
+        <img src="logo-image.webp" alt="">
         <span class="footer-brand-name">Alderney Ferry Services</span>
       </div>
       <p>A family-run passenger ferry service connecting Alderney with Guernsey and Cherbourg, France. Two vessels, two routes, one lifeline for the islands.</p>
@@ -316,17 +320,6 @@ navMob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
   document.body.style.overflow = '';
 }));
 
-// BOOKEO WIDGET — loads the live Alderney Ferry Services booking system.
-// Falls back to a phone/WhatsApp prompt if the script fails to load (e.g. blocked by an ad-blocker).
-(function () {
-  const fallback = document.getElementById('widgetFallback');
-  const timeout = setTimeout(() => fallback.classList.add('show'), 6000);
-  const script = document.createElement('script');
-  script.src = 'https://bookeo.com/widget.js?a=42557FTUY7A180D72DF3F9';
-  script.onload = () => clearTimeout(timeout);
-  script.onerror = () => { clearTimeout(timeout); fallback.classList.add('show'); };
-  document.getElementById('bookeoWidgetHost').appendChild(script);
-})();
 </script>
 </body>
 </html>
